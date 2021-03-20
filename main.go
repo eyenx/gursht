@@ -85,7 +85,11 @@ func NewUrlHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(u.ShortUrl)
 	u = redisWrite(u)
 	w.Header().Set("Content-Type", "application/json")
-	io.WriteString(w, `{"LongUrl":"`+u.LongUrl+`","ShortUrl":"`+shortUrlHost+u.ShortUrl+`"}`)
+	_, err = io.WriteString(w, `{"LongUrl":"`+u.LongUrl+`","ShortUrl":"`+shortUrlHost+u.ShortUrl+`"}`)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 }
 
 // get the shortened url
@@ -106,7 +110,11 @@ func GetUrlHandler(w http.ResponseWriter, r *http.Request) {
 func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	io.WriteString(w, `{"alive": true}`)
+	_, err := io.WriteString(w, `{"alive": true}`)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 }
 
 func main() {
