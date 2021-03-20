@@ -1,5 +1,9 @@
 # gursht - a simple URL shortener written in GO
 
+![](https://github.com/eyenx/gursht/workflows/GolangCI-Lint/badge.svg)
+![](https://github.com/eyenx/gursht/workflows/goreleaser/badge.svg)
+![](https://github.com/eyenx/gursht/workflows/build%20image/badge.svg)
+
 **Still a WIP**
 
 I always wanted to write something in Golang, and this is my first real mini project trying it out.
