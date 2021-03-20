@@ -17,7 +17,7 @@ func redisConn() *redis.Client {
 		redisHost = "localhost"
 	}
 	if redisPort == "" {
-		// defualt port
+		// default port
 		redisPort = "6379"
 	}
 	client := redis.NewClient(&redis.Options{

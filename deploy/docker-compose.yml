@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+  app:
+    image: ghcr.io/eyenx/gursht
+    restart: unless-stopped
+    environment:
+      - REDIS_HOST=redis
+      - SHORTURL_HOST=https://shortener.example.com
+
+  redis:
+    image: redis:alpine

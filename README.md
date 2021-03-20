@@ -1,17 +1,22 @@
 # gursht - a simple URL shortener written in GO
 
-I always wanted to write something in Golang, and this is my first real mini project trying this it out.
+**Still a WIP**
 
-# Still a WIP 
+I always wanted to write something in Golang, and this is my first real mini project trying it out.
 
-## getting started
+My main motivation behind this was getting a url shortener for my mutt configuration. [z3bra](http://z3bra.org) uses a url shortener too, and I wanted to implement this too. The main idea behind it, is getting rid of mutt's `+` line wraps when a link gets too long for the term.
+
+Find a demo of the app running on https://s.uff.li. Feel free to use it.
+
+## Getting started
 
 
 ### build & run it manually
 
 ```
+git clone https://github.com/eyenx/gursht && cd gursht
 go build 
-./gursth
+./gursth # you need to have a redis running on localhost
 ```
 
 ### Docker 
@@ -23,7 +28,7 @@ docker run -n gursht_redis -d redis
 docker run -p 3000:3000  -e REDIS_HOST=gursth_redis ghcr.io/eyenx/gursht:latest
 ```
 
-Access http://localhost and read the How-To
+Access http://localhost:3000 and read the howto.
 
 
 ### Kubernetes
