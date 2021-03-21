@@ -20,7 +20,7 @@ Find a demo of the app running on https://s.uff.li. Feel free to use it.
 ```
 git clone https://github.com/eyenx/gursht && cd gursht
 go build 
-./gursth # you need to have a redis running on localhost
+./gursht # you need to have a redis running on localhost
 ```
 
 ### Docker 
@@ -29,7 +29,7 @@ This mini URL Shortener app uses Redis to keep state. You can use it directly wi
 
 ```
 docker run -n gursht_redis -d redis
-docker run -p 3000:3000  -e REDIS_HOST=gursth_redis ghcr.io/eyenx/gursht:latest
+docker run -p 3000:3000  -e REDIS_HOST=gursht_redis ghcr.io/eyenx/gursht:latest
 ```
 
 Access http://localhost:3000 and read the howto.
