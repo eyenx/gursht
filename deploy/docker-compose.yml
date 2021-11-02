@@ -6,6 +6,7 @@ services:
     restart: unless-stopped
     environment:
       - REDIS_HOST=redis
+      - REDIS_ENABLED=true
       - SHORTURL_HOST=https://shortener.example.com
 
   redis:
