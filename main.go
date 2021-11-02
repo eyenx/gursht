@@ -141,8 +141,8 @@ func main() {
 		c := redisConn()
 		c.Close()
 	} else {
-      Urls = make(map[string]string)
-    }
+		Urls = make(map[string]string)
+	}
 	// router
 	r := mux.NewRouter()
 	r.HandleFunc("/healthz", HealthCheckHandler)
