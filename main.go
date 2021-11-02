@@ -21,6 +21,8 @@ const charset = "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0
 // configuration
 var length = os.Getenv("SHORTURL_LENGTH")
 var shortUrlHost = os.Getenv("SHORTURL_HOST")
+var redisEnabled, err = strconv.ParseBool(os.Getenv("REDIS_ENABLED"))
+var Urls map[string]string
 
 // evaluate seededRand
 var seededRand *rand.Rand = rand.New(
@@ -60,8 +62,14 @@ func shortenUrl(u Url) string {
 	}
 
 	// while already existent, rerun
-	for len(redisRead(string(b))) != 0 {
-		shortenUrl(u)
+	if redisEnabled {
+		for len(redisRead(string(b))) != 0 {
+			shortenUrl(u)
+		}
+	} else {
+		for len(Urls[string(b)]) != 0 {
+			shortenUrl(u)
+		}
 	}
 	return string(b)
 }
@@ -82,8 +90,11 @@ func NewUrlHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	// short the url
 	u.ShortUrl = shortenUrl(u)
-	fmt.Println(u.ShortUrl)
-	u = redisWrite(u)
+	if redisEnabled {
+		u = redisWrite(u)
+	} else {
+		Urls[u.ShortUrl] = u.LongUrl
+	}
 	w.Header().Set("Content-Type", "application/json")
 	_, err = io.WriteString(w, `{"LongUrl":"`+u.LongUrl+`","ShortUrl":"`+shortUrlHost+u.ShortUrl+`"}`)
 	if err != nil {
@@ -97,7 +108,12 @@ func GetUrlHandler(w http.ResponseWriter, r *http.Request) {
 	// retrieve vars
 	vars := mux.Vars(r)
 	// if redis contains this shortUrl
-	longUrl := redisRead(vars["url"])
+	var longUrl string
+	if redisEnabled {
+		longUrl = redisRead(vars["url"])
+	} else {
+		longUrl = Urls[vars["url"]]
+	}
 	if len(longUrl) > 0 {
 		http.Redirect(w, r, longUrl, http.StatusMovedPermanently)
 	} else {
@@ -118,9 +134,15 @@ func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	// redis check
-	c := redisConn()
-	c.Close()
+	// check redis connection if enabled
+	if redisEnabled {
+		// redis check
+		fmt.Println("Trying connection to redis")
+		c := redisConn()
+		c.Close()
+	} else {
+      Urls = make(map[string]string)
+    }
 	// router
 	r := mux.NewRouter()
 	r.HandleFunc("/healthz", HealthCheckHandler)
