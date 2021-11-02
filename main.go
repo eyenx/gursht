@@ -21,7 +21,7 @@ const charset = "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0
 // configuration
 var length = os.Getenv("SHORTURL_LENGTH")
 var shortUrlHost = os.Getenv("SHORTURL_HOST")
-var redisEnabled, err = strconv.ParseBool(os.Getenv("REDIS_ENABLED"))
+var redisEnabled, _ = strconv.ParseBool(os.Getenv("REDIS_ENABLED"))
 var Urls map[string]string
 
 // evaluate seededRand
