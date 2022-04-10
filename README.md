@@ -1,8 +1,8 @@
 # gursht - a simple URL shortener written in GO
 
-![](https://github.com/eyenx/gursht/workflows/lint-and-test/badge.svg)
-![](https://github.com/eyenx/gursht/workflows/release/badge.svg)
-![](https://github.com/eyenx/gursht/workflows/qa/badge.svg)
+[![Lint and Test](https://github.com/eyenx/gursht/actions/workflows/lint-and-test.yaml/badge.svg)](https://github.com/eyenx/gursht/actions/workflows/lint-and-test.yaml)
+[![Release](https://github.com/eyenx/gursht/actions/workflows/release.yaml/badge.svg)](https://github.com/eyenx/gursht/actions/workflows/release.yaml)
+[![QA](https://github.com/eyenx/gursht/actions/workflows/qa.yaml/badge.svg)](https://github.com/eyenx/gursht/actions/workflows/qa.yaml)
 
 **Still a WIP**
 
