@@ -1,17 +1,8 @@
-FROM golang:alpine as go
-FROM go as build
+FROM scratch
 
-WORKDIR /
+COPY gursht /
+COPY etc/passwd /etc/passwd
 
-COPY . /
-
-RUN apk add --no-cache \
-    build-base \
-    git \
-    && go build
-
-FROM alpine
+USER nobody
 
 ENTRYPOINT ["/gursht"]
-
-COPY --from=build /gursht /gursht
