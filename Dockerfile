@@ -8,7 +8,7 @@ COPY . /
 RUN apk add --no-cache \
     build-base \
     git \
-    && go build 
+    && go build
 
 FROM alpine
 
