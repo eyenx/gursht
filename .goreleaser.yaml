@@ -31,6 +31,7 @@ dockers:
       - "ghcr.io/eyenx/gursht:v{{ .Major }}.{{ .Minor }}"
       - "ghcr.io/eyenx/gursht:latest"
     build_flag_templates:
+      - "--label=io.artifacthub.package.readme-url=https://raw.githubusercontent.com/eyenx/{{.Branch}}/README.md"
       - "--label=org.opencontainers.image.created={{.Date}}"
       - "--label=org.opencontainers.image.name={{.ProjectName}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
